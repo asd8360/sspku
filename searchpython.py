@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# @Author: zhengbohang
+# @Date:   2019-04-19 19:10:26
+# @Last Modified by:   zhengbohang
+# @Last Modified time: 2019-04-20 17:13:52
+# @Email: wenwuhang@pku.edu.cn
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
@@ -6,27 +13,27 @@ import paths
 from attraction import Attraction
 #browser.implicitly_wait(3)
 
-def attactions_city(city_id):
-    attractions = []       
+def find_basic(city_id):
+    attractions = []
     driver = webdriver.Chrome()
     #driver.maximize_window()
     page = 0 #提示作用
     titles = []
     nums = []
     currank = 0
-    
+
     index_url = 'https://you.ctrip.com/sight/{}/s0-p1.html'.format(city_id)
-    
+
     driver.get(index_url)
     pages = eval(driver.find_element_by_css_selector('body > div.ttd2_background > div > div.des_wide.f_right >\
                                                 div > div.list_wide_mod2 > div.ttd_pager.cf > div > span > b').text)
     for pagenum in range(pages):
-        pagenum += 1   
+        pagenum += 1
         index_url = 'https://you.ctrip.com/sight/{}/s0-p{}.html'.format(city_id,pagenum)
-        driver.get(index_url) 
+        driver.get(index_url)
         block = driver.find_element_by_class_name('list_wide_mod2')
         places = block.find_elements_by_class_name('rdetailbox')
-        
+
         for i in range(len(places)):
             att = Attraction(city_id)
             dl = places[i].find_element_by_css_selector('dl')
@@ -60,6 +67,6 @@ if __name__ == '__main__':
     city_ids = []
     with open(paths.cities,'r',encoding='utf-8') as f:
         city_ids = eval(f.read())
-    for city_id in city_ids[20:]:
-        attactions_city(city_id)
+    for city_id in city_ids[100:]:
+        find_basic(city_id)
 

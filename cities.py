@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Apr 19 20:37:09 2019
+# @Author: zhengbohang
+# @Date:   2019-04-19 20:38:37
+# @Last Modified by:   zhengbohang
+# @Last Modified time: 2019-04-20 17:13:32
+# @Email: wenwuhang@pku.edu.cn
 
-@author: USER
-"""
 
 from selenium import webdriver
 import re
@@ -15,7 +16,7 @@ driver = webdriver.Chrome()
 #driver.maximize_window()
 
 index_url = 'https://you.ctrip.com/sitelist/china110000.html'
-driver.get(index_url) 
+driver.get(index_url)
 block = driver.find_element_by_css_selector('body > div.ttd2_background.ttd3_media > div > div.des_wide.f_right > div')
 hots = block.find_elements_by_css_selector('div.hot_destlist.cf > ul > li')
 commons = block.find_elements_by_css_selector('ul > li')
